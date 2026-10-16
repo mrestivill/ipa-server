@@ -5,13 +5,13 @@ WORKDIR /src/
 
 COPY go.mod go.sum ./
 
-RUN --mount=type=cache,id=gomod,target=/go/pkg/mod \
+RUN --mount=type=cache,id=s/c68bd003-bac8-4612-99d0-ae25b8905e64-/go/pkg/mod,target=/go/pkg/mod \
     go mod download
 
 COPY . .
 
-RUN --mount=type=cache,id=gomod,target=/go/pkg/mod \
-    --mount=type=cache,id=gobuild,target=/root/.cache/go-build \
+RUN --mount=type=cache,id=s/c68bd003-bac8-4612-99d0-ae25b8905e64-/go/pkg/mod,target=/go/pkg/mod \
+    --mount=type=cache,id=s/c68bd003-bac8-4612-99d0-ae25b8905e64-/root/.cache/go-build,target=/root/.cache/go-build \
     CGO_ENABLED=1 go build \
     -ldflags '-linkmode "external" --extldflags "-static"' \
     -o /src/ipasd cmd/ipasd/ipasd.go
